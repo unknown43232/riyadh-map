@@ -1,5 +1,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
+
 // import { LocationData } from "./types";
 
 type LocationData = {
@@ -113,11 +115,14 @@ export default function Home() {
         pharmacies={showPharmacies ? pharmacies : []}
       />
       <div className="penny-software">
-        <img
+        <Image
           src="https://penny.co/wp-content/uploads/2020/07/Penny-Logo.svg"
           alt="Penny Software Logo"
+          width={150} // Adjust width as needed
+          height={150} // Adjust height proportionally
           className="penny-logo"
         />
+
         <p>Created by Penny Software</p>
       </div>
 
