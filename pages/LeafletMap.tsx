@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
+import { useEffect, useState } from "react";
 
 type LocationData = {
   id: number;
@@ -13,23 +14,31 @@ type Props = {
   pharmacies: LocationData[];
 };
 
-const redIcon = new Icon({
-  iconUrl:
-    "https://cdn.iconscout.com/icon/premium/png-512-thumb/navigation-pin-5848273-4910997.png?f=webp&w=256",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [0, -41],
-});
-
-const blueIcon = new Icon({
-  iconUrl:
-    "https://cdn.iconscout.com/icon/premium/png-512-thumb/map-pin-1473766-1249535.png?f=webp&w=256",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [0, -41],
-});
-
 const LeafletMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
+  const [redIcon, setRedIcon] = useState<Icon | null>(null);
+  const [blueIcon, setBlueIcon] = useState<Icon | null>(null);
+
+  useEffect(() => {
+    const red = new Icon({
+      iconUrl:
+        "https://cdn.iconscout.com/icon/premium/png-512-thumb/navigation-pin-5848273-4910997.png?f=webp&w=256",
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [0, -41],
+    });
+
+    const blue = new Icon({
+      iconUrl:
+        "https://cdn.iconscout.com/icon/premium/png-512-thumb/map-pin-1473766-1249535.png?f=webp&w=256",
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [0, -41],
+    });
+
+    setRedIcon(red);
+    setBlueIcon(blue);
+  }, []);
+
   return (
     <MapContainer
       center={[24.7136, 46.6753]}
@@ -38,25 +47,27 @@ const LeafletMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-      {hospitals.map((hospital) => (
-        <Marker
-          position={[hospital.lat, hospital.lng]}
-          key={hospital.id}
-          icon={redIcon}
-        >
-          <Popup>{hospital.name}</Popup>
-        </Marker>
-      ))}
+      {redIcon &&
+        hospitals.map((hospital) => (
+          <Marker
+            position={[hospital.lat, hospital.lng]}
+            key={hospital.id}
+            icon={redIcon}
+          >
+            <Popup>{hospital.name}</Popup>
+          </Marker>
+        ))}
 
-      {pharmacies.map((pharmacy) => (
-        <Marker
-          position={[pharmacy.lat, pharmacy.lng]}
-          key={pharmacy.id}
-          icon={blueIcon}
-        >
-          <Popup>{pharmacy.name}</Popup>
-        </Marker>
-      ))}
+      {blueIcon &&
+        pharmacies.map((pharmacy) => (
+          <Marker
+            position={[pharmacy.lat, pharmacy.lng]}
+            key={pharmacy.id}
+            icon={blueIcon}
+          >
+            <Popup>{pharmacy.name}</Popup>
+          </Marker>
+        ))}
     </MapContainer>
   );
 };
