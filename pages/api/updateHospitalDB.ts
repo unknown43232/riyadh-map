@@ -4,7 +4,7 @@ import { PrismaClient, Hospitals } from "@prisma/client";
 const prisma = new PrismaClient();
 
 type LocationData = {
-  id: number;
+  placeId: string;
   name: string;
   lat: number;
   lng: number;
@@ -36,7 +36,7 @@ export default async function handler(
     const data = await response.json();
 
     const transformedData: LocationData[] = data.results.map((place: any) => ({
-      id: place.place_id,
+      placeId: place.place_id,
       name: place.name,
       lat: place.geometry.location.lat,
       lng: place.geometry.location.lng,
@@ -60,12 +60,12 @@ export default async function handler(
     await prisma.hospitals.create({
       data: {
         // id: hospital.id,
-        placeId: hospital.id,
+        placeId: hospital.placeId,
         name: hospital.name,
         lat: hospital.lat,
         lng: hospital.lng,
       },
-    } as Hospitals);
+    });
   }
 
   res.status(200).json({ message: "HospitalDB updated successfully" });
