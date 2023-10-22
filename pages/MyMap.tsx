@@ -1,5 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Icon } from "leaflet";
+import { useEffect, useState } from "react";
 
 type LocationData = {
   id: number;
@@ -14,6 +13,19 @@ type Props = {
 };
 
 const MyMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
+  const { MapContainer, TileLayer, Marker, Popup } = require("react-leaflet");
+  const { Icon } = require("leaflet");
+
   const redIcon = new Icon({
     iconUrl:
       "https://cdn.iconscout.com/icon/premium/png-512-thumb/navigation-pin-5848273-4910997.png?f=webp&w=256",
