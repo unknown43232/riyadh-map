@@ -107,8 +107,8 @@ export default function Home() {
         Pharmacies
       </label>
 
-      <button onClick={updateHospitalDB}>Update HospitalDB</button>
-      <button onClick={updatePharmacyDB}>Update PharmaciesDB</button>
+      {/* <button onClick={updateHospitalDB}>Update HospitalDB</button>
+      <button onClick={updatePharmacyDB}>Update PharmaciesDB</button> */}
 
       <MyMap
         hospitals={showHospitals ? hospitals : []}
