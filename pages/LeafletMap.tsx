@@ -15,7 +15,7 @@ type Props = {
 };
 
 const LeafletMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
-  const [isClient, setIsClient] = useState(false);
+  const isClient = typeof window !== "undefined";
   const [redIcon, setRedIcon] = useState<LeafletIcon | undefined>();
   const [blueIcon, setBlueIcon] = useState<LeafletIcon | undefined>();
 
