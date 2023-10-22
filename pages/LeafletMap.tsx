@@ -15,37 +15,41 @@ type Props = {
 
 const LeafletMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
   const [isClient, setIsClient] = useState(false);
-  let L;
+  const [redIcon, setRedIcon] = useState(null);
+  const [blueIcon, setBlueIcon] = useState(null);
 
   useEffect(() => {
     // This will run only once after the initial render, similar to componentDidMount
     import("leaflet/dist/leaflet.css");
     setIsClient(true);
-    if (isClient) {
-      L = require("leaflet");
+    if (typeof window !== "undefined" && window.L) {
+      const L = window.L;
+      setRedIcon(
+        new L.Icon({
+          iconUrl:
+            "https://cdn.iconscout.com/icon/premium/png-512-thumb/navigation-pin-5848273-4910997.png?f=webp&w=256",
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [0, -41],
+        })
+      );
+
+      setBlueIcon(
+        new L.Icon({
+          iconUrl:
+            "https://cdn.iconscout.com/icon/premium/png-512-thumb/map-pin-1473766-1249535.png?f=webp&w=256",
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [0, -41],
+        })
+      );
     }
-  }, [isClient]);
+  }, []);
 
   if (!isClient) {
     // If not on client side, don't render anything
     return null;
   }
-
-  const redIcon = new L.Icon({
-    iconUrl:
-      "https://cdn.iconscout.com/icon/premium/png-512-thumb/navigation-pin-5848273-4910997.png?f=webp&w=256",
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [0, -41],
-  });
-
-  const blueIcon = new L.Icon({
-    iconUrl:
-      "https://cdn.iconscout.com/icon/premium/png-512-thumb/map-pin-1473766-1249535.png?f=webp&w=256",
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [0, -41],
-  });
 
   return (
     <MapContainer
