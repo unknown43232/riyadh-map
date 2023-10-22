@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Icon as LeafletIcon,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Icon as LeafletIcon } from "leaflet";
 
 type LocationData = {
   id: number;
@@ -21,8 +16,8 @@ type Props = {
 
 const LeafletMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
   const [isClient, setIsClient] = useState(false);
-  const [redIcon, setRedIcon] = useState<LeafletIcon | null>(null);
-  const [blueIcon, setBlueIcon] = useState<LeafletIcon | null>(null);
+  const [redIcon, setRedIcon] = useState<LeafletIcon | undefined>();
+  const [blueIcon, setBlueIcon] = useState<LeafletIcon | undefined>();
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.L) {
