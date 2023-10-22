@@ -14,11 +14,7 @@ const API_KEY = process.env.GOOGLE_API_KEY;
 const BASE_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
 const RADIUS = 2500; // 2.5km, adjust as needed
 
-const divideIntoGrids = (
-  southWest: LocationData,
-  northEast: LocationData,
-  gridSize: number
-) => {
+const divideIntoGrids = (southWest: any, northEast: any, gridSize: number) => {
   const grids = [];
   for (let lat = southWest.lat; lat < northEast.lat; lat += gridSize) {
     for (let lng = southWest.lng; lng < northEast.lng; lng += gridSize) {
