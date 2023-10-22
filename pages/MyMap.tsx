@@ -14,17 +14,31 @@ type Props = {
 
 const MyMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
   const [isClient, setIsClient] = useState(false);
+  const [LeafletComponents, setLeafletComponents] = useState<any>(null);
 
   useEffect(() => {
     setIsClient(true);
-  }, []);
 
-  if (!isClient) {
+    if (isClient) {
+      import("react-leaflet").then((reactLeaflet) => {
+        import("leaflet").then((leaflet) => {
+          setLeafletComponents({
+            MapContainer: reactLeaflet.MapContainer,
+            TileLayer: reactLeaflet.TileLayer,
+            Marker: reactLeaflet.Marker,
+            Popup: reactLeaflet.Popup,
+            Icon: leaflet.Icon,
+          });
+        });
+      });
+    }
+  }, [isClient]);
+
+  if (!LeafletComponents) {
     return null;
   }
 
-  const { MapContainer, TileLayer, Marker, Popup } = require("react-leaflet");
-  const { Icon } = require("leaflet");
+  const { MapContainer, TileLayer, Marker, Popup, Icon } = LeafletComponents;
 
   const redIcon = new Icon({
     iconUrl:
