@@ -19,6 +19,7 @@ const LeafletMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
 
   useEffect(() => {
     // This will run only once after the initial render, similar to componentDidMount
+    import("leaflet/dist/leaflet.css");
     setIsClient(true);
   }, []);
 
