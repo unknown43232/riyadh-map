@@ -20,8 +20,8 @@ const LeafletMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
   const [blueIcon, setBlueIcon] = useState<LeafletIcon | undefined>();
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.L) {
-      const L = window.L;
+    if (isClient) {
+      const L = require("leaflet");
       setRedIcon(
         new L.Icon({
           iconUrl:
@@ -41,7 +41,7 @@ const LeafletMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
         })
       );
     }
-  }, []);
+  }, [isClient]);
 
   if (!isClient) {
     // If not on client side, don't render anything
