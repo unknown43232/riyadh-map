@@ -14,7 +14,7 @@ type Props = {
   pharmacies: LocationData[];
 };
 
-const LeafletMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
+const MyMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -74,4 +74,4 @@ const LeafletMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
   );
 };
 
-export default LeafletMap;
+export default MyMap;

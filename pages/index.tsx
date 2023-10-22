@@ -11,7 +11,7 @@ type LocationData = {
   lng: number;
 };
 
-const LeafletMap = dynamic(() => import("./LeafletMap"), {
+const MyMap = dynamic(() => import("./MyMap"), {
   ssr: false,
   loading: () => <p>Loading map...</p>,
 });
@@ -110,7 +110,7 @@ export default function Home() {
       <button onClick={updateHospitalDB}>Update HospitalDB</button>
       <button onClick={updatePharmacyDB}>Update PharmaciesDB</button>
 
-      <LeafletMap
+      <MyMap
         hospitals={showHospitals ? hospitals : []}
         pharmacies={showPharmacies ? pharmacies : []}
       />
