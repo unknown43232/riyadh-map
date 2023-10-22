@@ -85,14 +85,16 @@ export default async function handler(
 
   // Insert new data
   for (let pharmacy of uniquePharmacies) {
-    await prisma.pharmacies.create({
-      data: {
-        placeId: pharmacy.placeId,
-        name: pharmacy.name,
-        lat: pharmacy.lat,
-        lng: pharmacy.lng,
-      },
-    });
+    if (pharmacy) {
+      await prisma.pharmacies.create({
+        data: {
+          placeId: pharmacy.placeId,
+          name: pharmacy.name,
+          lat: pharmacy.lat,
+          lng: pharmacy.lng,
+        },
+      });
+    }
   }
 
   res.status(200).json({ message: "PharmacyDB updated successfully" });

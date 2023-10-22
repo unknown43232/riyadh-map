@@ -85,14 +85,16 @@ export default async function handler(
 
   // Insert new data
   for (let hospital of uniqueHospitals) {
-    await prisma.hospitals.create({
-      data: {
-        placeId: hospital.placeId,
-        name: hospital.name,
-        lat: hospital.lat,
-        lng: hospital.lng,
-      },
-    });
+    if (hospital) {
+      await prisma.hospitals.create({
+        data: {
+          placeId: hospital.placeId,
+          name: hospital.name,
+          lat: hospital.lat,
+          lng: hospital.lng,
+        },
+      });
+    }
   }
 
   res.status(200).json({ message: "HospitalDB updated successfully" });
