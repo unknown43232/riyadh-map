@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-// import "leaflet/dist/leaflet.css";
+import "leaflet/dist/leaflet.css";
 
 import type { AppProps } from "next/app";
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { Icon as LeafletIcon } from "leaflet";
+import { Icon } from "leaflet";
 
 type LocationData = {
   id: number;
@@ -15,38 +15,33 @@ type Props = {
 };
 
 const LeafletMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
-  const isClient = typeof window !== "undefined";
-  const [redIcon, setRedIcon] = useState<LeafletIcon | undefined>();
-  const [blueIcon, setBlueIcon] = useState<LeafletIcon | undefined>();
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    if (isClient) {
-      const L = require("leaflet");
-      setRedIcon(
-        new L.Icon({
-          iconUrl:
-            "https://cdn.iconscout.com/icon/premium/png-512-thumb/navigation-pin-5848273-4910997.png?f=webp&w=256",
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [0, -41],
-        })
-      );
-      setBlueIcon(
-        new L.Icon({
-          iconUrl:
-            "https://cdn.iconscout.com/icon/premium/png-512-thumb/map-pin-1473766-1249535.png?f=webp&w=256",
-          iconSize: [25, 41],
-          iconAnchor: [12, 41],
-          popupAnchor: [0, -41],
-        })
-      );
-    }
-  }, [isClient]);
+    // This will run only once after the initial render, similar to componentDidMount
+    setIsClient(true);
+  }, []);
 
   if (!isClient) {
     // If not on client side, don't render anything
     return null;
   }
+
+  const redIcon = new Icon({
+    iconUrl:
+      "https://cdn.iconscout.com/icon/premium/png-512-thumb/navigation-pin-5848273-4910997.png?f=webp&w=256",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [0, -41],
+  });
+
+  const blueIcon = new Icon({
+    iconUrl:
+      "https://cdn.iconscout.com/icon/premium/png-512-thumb/map-pin-1473766-1249535.png?f=webp&w=256",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [0, -41],
+  });
 
   return (
     <MapContainer
