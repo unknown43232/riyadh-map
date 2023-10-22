@@ -1,8 +1,13 @@
 import "@/styles/globals.css";
-import "leaflet/dist/leaflet.css";
 
 import type { AppProps } from "next/app";
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
+  if (typeof window !== "undefined") {
+    require("leaflet/dist/leaflet.css");
+  }
+
   return <Component {...pageProps} />;
 }
+
+export default App;

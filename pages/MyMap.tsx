@@ -15,11 +15,13 @@ type Props = {
 };
 
 const MyMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
-  const [isClient, setIsClient] = useState(false);
+  const [isClient, setIsClient] = useState(typeof window !== "undefined");
 
   useEffect(() => {
     // This will run only once after the initial render, similar to componentDidMount
-    setIsClient(true);
+    if (!isClient) {
+      setIsClient(true);
+    }
   }, []);
 
   if (!isClient) {
