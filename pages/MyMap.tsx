@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
 
@@ -15,20 +14,6 @@ type Props = {
 };
 
 const MyMap: React.FC<Props> = ({ hospitals, pharmacies }) => {
-  const [isClient, setIsClient] = useState(typeof window !== "undefined");
-
-  useEffect(() => {
-    // This will run only once after the initial render, similar to componentDidMount
-    if (!isClient) {
-      setIsClient(true);
-    }
-  }, []);
-
-  if (!isClient) {
-    // If not on client side, don't render anything
-    return null;
-  }
-
   const redIcon = new Icon({
     iconUrl:
       "https://cdn.iconscout.com/icon/premium/png-512-thumb/navigation-pin-5848273-4910997.png?f=webp&w=256",
